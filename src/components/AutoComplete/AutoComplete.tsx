@@ -26,7 +26,7 @@ const AutoComplete: React.FC = () => {
     const value = e.target.value;
     setQuery(value);
     debouncedFetchUniversities(value);
-    setShowDropdown(true);
+    value ? setShowDropdown(true) : setShowDropdown(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

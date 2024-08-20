@@ -70,7 +70,7 @@ c. WithTheme HOC: This HOC provides theme-related props to the wrapped component
 callbacks and async...await?
 
 Answer:
-for callbacks error/exceptions is passed as the first argument, error/exceptions are handled with .catch() for promises and errors are handled with try...catch for async...await
+for callbacks error is passed as the first argument, error are handled with .catch() for promises and errors are handled with try...catch for async...await
 
 8. How many arguments does setState take and why is it async.
 
@@ -107,7 +107,7 @@ g. check for context usage and convert it to use useContext hook
 h. test the migrated component
 
 
-10.List a few ways styles can be used with components.
+10. List a few ways styles can be used with components.
 
 Answer:
 a. inline style which is directly applied to the style element in JSX
