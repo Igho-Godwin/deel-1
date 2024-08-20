@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
-import AutoComplete from "../components/AutoComplete";
+import AutoComplete from "../components/AutoComplete/AutoComplete";
 import { useUniversities } from "../hooks/useUniversities";
 
 jest.mock("../hooks/useUniversities");

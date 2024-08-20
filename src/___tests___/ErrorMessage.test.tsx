@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { ErrorMessage } from "../components/ErrorMessage";
+import { ErrorMessage } from "../components/AutoComplete/ErrorMessage";
 
 describe("ErrorMessage component", () => {
   it("renders with the correct error message", () => {

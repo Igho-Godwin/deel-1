@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { NoResults } from '../components/NoResults';
+import { NoResults } from '../components/AutoComplete/NoResults';
 
 test('renders the NoResults component', () => {
   render(<NoResults />);

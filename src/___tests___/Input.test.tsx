@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Input } from "../components/Input";
+import { Input } from "../components/AutoComplete/Input";
 
 describe("Input component", () => {
   const mockHandleChange = jest.fn();

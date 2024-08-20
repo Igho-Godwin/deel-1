@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { LoadingIndicator } from "../components/LoadingIndicator";
+import { LoadingIndicator } from "../components/AutoComplete/LoadingIndicator";
 
 it("renders the LoadingIndicator component", () => {
   render(<LoadingIndicator />);

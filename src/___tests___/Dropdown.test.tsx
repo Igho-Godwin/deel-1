@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent, within } from "@testing-library/react";
-import { Dropdown } from "../components/Dropdown";
+import { Dropdown } from "../components/AutoComplete/Dropdown";
 import { faker } from "@faker-js/faker";
 
 const generateUniversity = () => ({
