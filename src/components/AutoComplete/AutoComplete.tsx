@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { debounce } from "../utils/debounce";
-import { useUniversities } from "../hooks/useUniversities";
+import { debounce } from "../../utils/debounce";
+import { useUniversities } from "../../hooks/useUniversities";
 import { Input } from "./Input";
 import { Dropdown } from "./Dropdown";
 import { NoResults } from "./NoResults";

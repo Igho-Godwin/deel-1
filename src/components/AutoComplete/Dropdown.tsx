@@ -1,5 +1,5 @@
 import React from "react";
-import { University } from "../types";
+import { University } from "../../types";
 
 interface DropdownProps {
   universities: University[];
