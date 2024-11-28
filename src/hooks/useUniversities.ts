@@ -2,6 +2,8 @@
 import { useState, useCallback } from "react";
 import { University } from "../types";
 
+import _ from 'lodash';
+
 export const useUniversities = () => {
   const [universities, setUniversities] = useState<University[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,13 +25,9 @@ export const useUniversities = () => {
       }
 
       const data = await response.json();
-
-      setUniversities(
-        data.map((university: any) => ({
-          name: university.name,
-          country: university.country,
-        }))
-      );
+      const typedData = data as University[];
+      const uniQueData = _.uniqBy(typedData, 'name');
+      setUniversities(uniQueData);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

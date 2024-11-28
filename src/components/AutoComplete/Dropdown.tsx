@@ -42,7 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   >
     {universities.map((university, index) => (
       <li
-        key={Math.random().toString()}
+        key={university.name}
         id={`option-${index}`}
         className={index === highlightedIndex ? "highlighted" : ""}
         onClick={() => selectItem(university.name)}
