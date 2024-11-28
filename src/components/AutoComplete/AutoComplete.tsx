@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { debounce } from "../../utils/debounce";
 import { useUniversities } from "../../hooks/useUniversities";
 import { Input } from "./Input";
 import { Dropdown } from "./Dropdown";
 import { NoResults } from "./NoResults";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { ErrorMessage } from "./ErrorMessage";
+import useDebounce from "../../hooks/useDebounce";
 
 const AutoComplete: React.FC = () => {
   const [query, setQuery] = useState<string>("");
@@ -13,20 +13,25 @@ const AutoComplete: React.FC = () => {
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   const { universities, loading, error, fetchUniversities } = useUniversities();
+  
+  const debouncedSearchValue = useDebounce(query, 300)
 
-  // Debounced version of fetchUniversities
-  const debouncedFetchUniversities = debounce(
-    (q: string) => fetchUniversities(q),
-    300
-  );
+  useEffect(() => {
+    if (debouncedSearchValue) {
+      fetchUniversities(debouncedSearchValue);
+      setShowDropdown(true);
+    }
+  }, [debouncedSearchValue, fetchUniversities]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-    debouncedFetchUniversities(value);
-    value ? setShowDropdown(true) : setShowDropdown(false);
+    if (!value) {
+      setShowDropdown(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -43,6 +48,24 @@ const AutoComplete: React.FC = () => {
       setShowDropdown(false);
     }
   };
+
+  useEffect(() => {
+    if (highlightedIndex >= 0 && itemRefs.current[highlightedIndex]) {
+      const highlightedItem = itemRefs.current[highlightedIndex];
+      const dropdownElement = dropdownRef.current;
+
+      if (highlightedItem && dropdownElement) {
+        const dropdownRect = dropdownElement.getBoundingClientRect();
+        const itemRect = highlightedItem.getBoundingClientRect();
+
+        if (itemRect.bottom > dropdownRect.bottom) {
+          dropdownElement.scrollTop += itemRect.bottom - dropdownRect.bottom;
+        } else if (itemRect.top < dropdownRect.top) {
+          dropdownElement.scrollTop -= dropdownRect.top - itemRect.top;
+        }
+      }
+    }
+  }, [highlightedIndex]);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -88,6 +111,7 @@ const AutoComplete: React.FC = () => {
           selectItem={selectItem}
           dropdownRef={dropdownRef}
           query={query}
+          itemRefs={itemRefs}
         />
       )}
       {showDropdown && universities.length === 0 && !loading && !error && (

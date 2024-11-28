@@ -7,6 +7,7 @@ interface DropdownProps {
   selectItem: (name: string) => void;
   dropdownRef: React.RefObject<HTMLUListElement>;
   query: string;
+  itemRefs: React.RefObject<(HTMLLIElement | null)[]>;
 }
 
 const highlightText = (text: string, query: string) => {
@@ -30,6 +31,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   selectItem,
   dropdownRef,
   query,
+  itemRefs,
 }) => (
   <ul
     className="dropdown"
@@ -47,6 +49,13 @@ export const Dropdown: React.FC<DropdownProps> = ({
         role="option"
         aria-selected={index === highlightedIndex}
         data-testid="autocomplete-option"
+      
+        ref={(el) => {
+          if (itemRefs.current != null) {
+            itemRefs.current[index] = el;
+            return itemRefs.current[index];
+          }
+        }}
       >
         {highlightText(`${university.name}, ${university.country}`, query)}
       </li>

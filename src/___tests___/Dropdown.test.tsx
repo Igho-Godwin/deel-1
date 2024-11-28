@@ -20,6 +20,7 @@ const setup = (highlightedIndex: number = 0, query: string = "") => {
       highlightedIndex={highlightedIndex}
       selectItem={selectItemMock}
       dropdownRef={dropdownRef}
+      itemRefs={React.createRef<(HTMLLIElement | null)[]>()}
       query={query}
     />
   );
@@ -69,6 +70,7 @@ describe("Dropdown component", () => {
         selectItem={selectItemMock}
         dropdownRef={dropdownRef}
         query={query}
+        itemRefs={React.createRef<(HTMLLIElement | null)[]>()}
       />
     );
 
